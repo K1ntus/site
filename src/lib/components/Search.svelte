@@ -1,6 +1,7 @@
 <script lang="ts">
+    import { resolve } from "$app/paths";
+    import type { RouteId } from "$app/types";
     import type { SearchEntry } from "$lib/types.ts";
-    import type { FormEventHandler } from "svelte/elements";
 
     function mapEntryWithRank(entry: SearchEntry, keywords: string[]): SearchEntry & { rank: number } {
         console.log({ entry, keywords, rank: keywords.filter((keyword) => entry.title.toLowerCase().includes(keyword) || entry.content.includes(keyword)).length })
@@ -52,7 +53,7 @@
         <input oninput={onKeyPress} bind:value={value} type="text" placeholder="Search" class="bg-zinc-900 h-12 px-4 rounded-md hover:border-sky-300 hover:border focus:border-sky-300 focus:border-2 focus:outline-none focus:ring-0" />
 
         {#each searchEntries as searchEntry}
-            <a href={`/docs/${searchEntry.slug}`} onclick={close} aria-label={searchEntry.title} class="border-4 border-zinc-700 rounded-md mt-4 px-2 py-1 flex flex-row hover:text-sky-300 hover:border-sky-300">
+            <a href={resolve(`/docs/${searchEntry.slug}` as RouteId)} onclick={close} aria-label={searchEntry.title} class="border-4 border-zinc-700 rounded-md mt-4 px-2 py-1 flex flex-row hover:text-sky-300 hover:border-sky-300">
                 {#if searchEntry.category !== ""}
                     <span class="uppercase font-bold">{searchEntry.category}</span>
                     <span class="ml-2">〉</span>

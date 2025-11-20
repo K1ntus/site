@@ -1,5 +1,7 @@
 <script lang="ts">
+    import { resolve } from "$app/paths";
     import { page } from "$app/state";
+    import type { RouteId } from "$app/types";
     import type { ArticleCategory } from "$lib/types.ts";
 
     let { articleList }: { articleList: ArticleCategory[] } = $props();
@@ -18,7 +20,7 @@
         {/if}
 
         {#each category.children as article}
-            <a href={`/docs/${article.slug}`}  class="{article === currentArticle() ? "text-sky-300" : "text-zinc-400"} hover:cursor-pointer hover:text-sky-300 hover:duration-500">{article.title}</a>
+            <a href={resolve(`/docs/${article.slug}` as RouteId)}  class="{article === currentArticle() ? "text-sky-300" : "text-zinc-400"} hover:cursor-pointer hover:text-sky-300 hover:duration-500">{article.title}</a>
         {/each}
     {/each}
 </div>
