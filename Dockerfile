@@ -8,9 +8,9 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lockb* .npmrc* source.config.ts next.config.* ./
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lockb* bun.lock* .npmrc* source.config.ts next.config.* ./
 RUN \
-  if [ -f bun.lockb ]; then \
+  if [ -f bun.lockb ] || [ -f bun.lock ]; then \
     apk add --no-cache curl unzip && \
     curl -fsSL https://bun.sh/install | bash && \
     /root/.bun/bin/bun install --frozen-lockfile; \
@@ -33,7 +33,7 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN \
-  if [ -f bun.lockb ]; then /root/.bun/bin/bun run build; \
+  if [ -f bun.lockb ] || [ -f bun.lock ]; then /root/.bun/bin/bun run build; \
   elif [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
