@@ -28,30 +28,32 @@ export function DiscordButton() {
   }, []);
 
   return (
-    <Button className="relative">
-      <FaDiscord />
-      {messages.home.discord}
-      <div className="absolute top-full mt-2 flex">
-        <ViewTransition>
-          {state === "loading" ? (
-            <p className="text-muted-foreground text-sm">
-              {messages.misc.loading}
-            </p>
-          ) : state === "loaded" && stats ? (
-            <p className="text-muted-foreground flex items-center gap-1 text-sm">
-              <span className="flex gap-1 text-green-400">
-                <CircleUserIcon className="my-auto" />
-                {messages.home.memberCount.replace(
-                  "{count}",
-                  stats.total_members.toString(),
-                )}
-              </span>
-            </p>
-          ) : (
-            <p className="text-destructive text-sm">Failed to load stats</p>
-          )}
-        </ViewTransition>
-      </div>
+    <Button className="relative" asChild>
+      <Link href="https://discord.gg/hytalemodding" target="_blank">
+        <FaDiscord />
+        {messages.home.discord}
+        <div className="absolute top-full mt-2 flex">
+          <ViewTransition>
+            {state === "loading" ? (
+              <p className="text-muted-foreground text-sm">
+                {messages.misc.loading}
+              </p>
+            ) : state === "loaded" && stats ? (
+              <p className="text-muted-foreground flex items-center gap-1 text-sm">
+                <span className="flex gap-1 text-green-400">
+                  <CircleUserIcon className="my-auto" />
+                  {messages.home.memberCount.replace(
+                    "{count}",
+                    stats.total_members.toString(),
+                  )}
+                </span>
+              </p>
+            ) : (
+              <p className="text-destructive text-sm">Failed to load stats</p>
+            )}
+          </ViewTransition>
+        </div>
+      </Link>
     </Button>
   );
 }
