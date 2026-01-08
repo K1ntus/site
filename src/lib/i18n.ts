@@ -18,6 +18,7 @@ export const i18n = defineI18n({
     "nl-NL",
     "pt-BR",
     "pt-PT",
+    "pl-PL",
     "ro-RO",
     "ru-RU",
     "tr-TR",
